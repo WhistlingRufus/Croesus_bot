@@ -1,5 +1,5 @@
 from selenium import webdriver
-from webdriver_manager.microsoft import EdgeChromiumDriverManager
+from webdriver_manager.microsoft import EdgeChromiumDriverManager,ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 import discord
@@ -93,7 +93,8 @@ class FininceReporter(commands.Cog):
         
         print('Today is:', curr_date.strftime('%d.%m.%Y'))
         if curr_date.hour == 1:#True
-            browser = webdriver.Edge(service=Service(EdgeChromiumDriverManager().install()))
+            browser = webdriver.Chrome(ChromeDriverManager().install())
+            #webdriver.Edge(service=Service(EdgeChromiumDriverManager().install()))
             browser.set_window_size(1920,1280)
             if curr_date.weekday() ==0:
                 curr_period_spx=list(self.spx_duration_dict.keys())[1]
