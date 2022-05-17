@@ -143,7 +143,8 @@ class FininceReporter(commands.Cog):
             await ctx.channel.purge(limit=2)
             return
         curr_date = datetime.now()
-        browser = webdriver.Edge(service=Service(EdgeChromiumDriverManager().install()))
+        #browser = webdriver.Edge(service=Service(EdgeChromiumDriverManager().install()))
+        browser = webdriver.Chrome(ChromeDriverManager().install())
         browser.set_window_size(1920,1280)
         curr_period_spx=list(self.spx_duration_dict.keys())[0]
         curr_period_moex=list(self.moex_duration_dict.keys())[0]
