@@ -6,8 +6,10 @@ from src.finance_reporter import FininceReporter
 client = commands.Bot(command_prefix=settings['prefix'])
 finreporter = FininceReporter(client=client)
 client.add_cog(finreporter)
-
-
+from pyvirtualdisplay import Display
+display = Display(visible=0,size=(800, 600))
+display.start()
+#sudo apt-get install chromium-chromedriver#
 @client.event
 async def on_ready():
 	try:

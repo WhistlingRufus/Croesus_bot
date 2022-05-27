@@ -3,3 +3,5 @@ Pillow==9.1.0
 discord.py==1.7.3
 emoji==1.7.0
 matplotlib==3.5.2
+loguru
+pyvirtualdisplay
