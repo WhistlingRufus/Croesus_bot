@@ -161,13 +161,14 @@ class FininceReporter(commands.Cog):
         opts.add_argument('--disable-setuid-sandbox')
         browser = webdriver.Chrome(options=opts)
         browser.set_window_size(1920,1280)
+        await ctx.channel.purge(limit=2)
         curr_period_spx=list(self.spx_duration_dict.keys())[0]
         curr_period_moex=list(self.moex_duration_dict.keys())[0]
         logger.info(f'запрос на информацию за день {curr_period_spx}')
         im1_path =self.get_SPX(browser=browser,period=curr_period_spx)
         im2_path =self.get_MOEX(browser=browser,period=curr_period_moex)
         if description is not None:
-            await channel.send(f"Today is: {curr_date.strftime('%d.%m.%Y')} \n"+' '.join([str(i) for i in description ]),files=[discord.File(im1_path),discord.File(im2_path)],reference=ctx.message)
+            await channel.send(f"Today is: {curr_date.strftime('%d.%m.%Y')} \n"+' '.join([str(i) for i in description ]),files=[discord.File(im1_path),discord.File(im2_path)])#,reference=ctx.message)
         else:
             await channel.send(f"Today is: {curr_date.strftime('%d.%m.%Y')} \n",files=[discord.File(im1_path),discord.File(im2_path)],reference=ctx.message)
         logger.info('запрос выполенен')    
@@ -175,6 +176,11 @@ class FininceReporter(commands.Cog):
 
     @commands.command()
     async def create_fins(self,ctx: discord.ext.commands.Context, overwrite = False):
+        if channel.name!='general':
+            await channel.send('команда работает только в общем чате',reference=ctx.message)
+            time.sleep(5)
+            await ctx.channel.purge(limit=2)
+            return
         guild = ctx.message.guild
         fins_name = 'Finance_reports'
         for category in guild.categories:
