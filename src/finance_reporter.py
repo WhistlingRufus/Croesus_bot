@@ -176,6 +176,7 @@ class FininceReporter(commands.Cog):
 
     @commands.command()
     async def create_fins(self,ctx: discord.ext.commands.Context, overwrite = False):
+        channel = ctx.channel
         if channel.name!='general':
             await channel.send('команда работает только в общем чате',reference=ctx.message)
             time.sleep(5)
