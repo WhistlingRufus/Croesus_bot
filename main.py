@@ -25,16 +25,11 @@ async def on_ready():
 		logger.info(e)
 
 @client.command(pass_contest = True)
-async def очистка(ctx,amount=10):
+async def clear(ctx,amount=1):
 	await ctx.channel.purge(limit=amount)
 
 @client.event
 async def on_message(message):
-	'''if channel.name!='general':
-            await channel.send('команда работает только в общем чате',reference=ctx.message)
-            time.sleep(5)
-            await ctx.channel.purge(limit=2)
-            return'''
 	if message.author != client.user:
 		if message.content.lower().startswith("привет") or message.content.lower().startswith("здаро") or message.content.lower().startswith("ghbd"):
 			await message.channel.send(f'Привет, {message.author} '+emoji.emojize('\U0001F603'),reference=message)		
