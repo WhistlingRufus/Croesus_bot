@@ -181,7 +181,7 @@ class FininceReporter(commands.Cog):
         if channel.name!='дневные':
             await channel.send('команда работает только в дневном чате',reference=ctx.message)
             time.sleep(5)
-            await ctx.channel.purge(limit=2)
+            await ctx.channel.purge(limit=1)
             return
         curr_date = datetime.now()
         #webdriver.Edge(service=Service(EdgeChromiumDriverManager(version="92.0.878.0").install()))
@@ -190,7 +190,7 @@ class FininceReporter(commands.Cog):
         opts.add_argument('--disable-setuid-sandbox')
         browser = webdriver.Chrome(options=opts)
         browser.set_window_size(1920,1280)
-        await ctx.channel.purge(limit=2)
+        await ctx.channel.purge(limit=1)
         curr_period_spx=list(self.spx_duration_dict.keys())[0]
         curr_period_moex=list(self.moex_duration_dict.keys())[0]
         logger.info(f'запрос на информацию за день {curr_period_spx}')
@@ -199,11 +199,11 @@ class FininceReporter(commands.Cog):
         str_moex = self.form_string(self.moex.history(period='1d'))
         str_spx = self.form_string(self.spx.history(period='1d'), True)
         
-        if description is not None:
+        if len(description)>0:
             await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')} \n"+' '.join([str(i) for i in description ])+str_moex+str_spx \
                                                         ,files=[discord.File(im1_path),discord.File(im2_path)])#,reference=ctx.message)
         else:
-            await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')}"+str_moex+str_spx,files=[discord.File(im1_path),discord.File(im2_path)],reference=ctx.message)
+            await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')}"+str_moex+str_spx,files=[discord.File(im1_path),discord.File(im2_path)])
         logger.info('запрос выполенен')    
         browser.quit()
 
@@ -213,7 +213,7 @@ class FininceReporter(commands.Cog):
         if channel.name!='general':
             await channel.send('команда работает только в общем чате',reference=ctx.message)
             time.sleep(5)
-            await ctx.channel.purge(limit=2)
+            await ctx.channel.purge(limit=1)
             return
         guild = ctx.message.guild
         fins_name = 'Finance_reports'
