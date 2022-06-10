@@ -176,7 +176,7 @@ class FininceReporter(commands.Cog):
             browser.quit()
 
     @commands.command()
-    async def get_daily(self,ctx: discord.ext.commands.Context,*description):
+    async def get_daily(self,ctx: discord.ext.commands.Context,*description ):
         channel = ctx.channel
         if channel.name!='дневные':
             await channel.send('команда работает только в дневном чате',reference=ctx.message)
@@ -199,7 +199,7 @@ class FininceReporter(commands.Cog):
         str_moex = self.form_string(self.moex.history(period='1d'))
         str_spx = self.form_string(self.spx.history(period='1d'), True)
         
-        if description is not None:
+        if len(description)>0:
             await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')} \n"+' '.join([str(i) for i in description ])+str_moex+str_spx \
                                                         ,files=[discord.File(im1_path),discord.File(im2_path)])#,reference=ctx.message)
         else:
