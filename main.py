@@ -38,9 +38,13 @@ if __name__ == '__main__':
 		except Exception as e:
 			logger.info(e)
 
-	@client.command(pass_contest = True)
+	@client.command(pass_contest = True, help="Удаляет сообщения.", breaf="!clear <количестко сообщений> по умолчанию 1")
 	async def clear(ctx,amount=1):
 		await ctx.channel.purge(limit=amount)
+	
+	@client.command(pass_contest = True, help="Возвращает git репозиторий")
+	async def get_git(ctx,amount=1):
+		await ctx.channel.send("https://github.com/WhistlingRufus/Croesus_bot")
 
 	@client.event
 	async def on_message(message):

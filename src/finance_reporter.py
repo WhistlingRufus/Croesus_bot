@@ -175,7 +175,7 @@ class FininceReporter(commands.Cog):
                     logger.info('запрос на информацию по году выполнен')
             browser.quit()
 
-    @commands.command()
+    @commands.command(brief = 'Возвращает карты индексов за прошедщий день.', help = "Для того чтобы оставить заметку введите !get_daily <текст заметки>.\n Работает только в дневном чате.")
     async def get_daily(self,ctx: discord.ext.commands.Context,*description ):
         channel = ctx.channel
         if channel.name!='дневные':
@@ -207,7 +207,7 @@ class FininceReporter(commands.Cog):
         logger.info('запрос выполенен')    
         browser.quit()
 
-    @commands.command()
+    @commands.command(brief = 'Инициализирует чаты для графиков', help = 'True чтобы выполнить удаляет старые и создаёт новые пустые.')
     async def create_fins(self,ctx: discord.ext.commands.Context, overwrite = False):
         channel = ctx.channel
         if channel.name!='general':
