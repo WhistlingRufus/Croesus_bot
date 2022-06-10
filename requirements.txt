@@ -6,3 +6,5 @@ loguru==0.6.0
 pyvirtualdisplay==3.0
 webdriver_managersele==3.7.0
 pyyaml==6.0
+#sudo apt-get install libxml2-dev libxslt-dev 
+yfinance-0.1.70
