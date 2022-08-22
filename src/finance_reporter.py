@@ -39,8 +39,8 @@ class FininceReporter(commands.Cog):
         os.mkdir(os.path.join(self.map_store_dir,'s&p500'))
         os.mkdir(os.path.join(self.map_store_dir,'moex'))   
         self.include_moex = include_moex
-        self.moex = yf.Ticker("MOEX.ME")
-        self.spx =  yf.Ticker("SPY")
+        #self.moex = yf.Ticker("MOEX.ME")
+        #self.spx =  yf.Ticker("SPY")
         self.client = client
         self.__call__.start()
         logger.debug("FininceReporter is initialized")
@@ -130,10 +130,10 @@ class FininceReporter(commands.Cog):
                 im1_path =self.get_SPX(browser=browser,period=curr_period_spx)
                 im2_path =self.get_MOEX(browser=browser,period=curr_period_moex)
                 channel = self.client.get_channel(fin_channel_ids[curr_period_spx])
-                str_moex = self.form_string(self.moex.history(period=self.yfinance_periods[0]))
+                #str_moex = self.form_string(self.moex.history(period=self.yfinance_periods[0]))
                 str_spx = self.form_string(self.spx.history(period=self.yfinance_periods[0]), True)
                 
-                await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')}"+str_spx+str_moex,files=[discord.File(im1_path),discord.File(im2_path)])
+                await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')}"+str_spx,files=[discord.File(im1_path),discord.File(im2_path)])
                 logger.info(f'запрос на информацию по неделям выполнен')
             if curr_date.day == 1:
                 curr_period_spx=list(self.spx_duration_dict.keys())[2]
@@ -141,19 +141,19 @@ class FininceReporter(commands.Cog):
                 logger.info(f'запрос на информацию по месяцам {curr_period_spx}')
                 im1_path = self.get_SPX(browser=browser,period=curr_period_spx)
                 im2_path = self.get_MOEX(browser=browser,period=curr_period_moex)
-                str_moex = self.form_string(self.moex.history(period=self.yfinance_periods[1]))
+                #str_moex = self.form_string(self.moex.history(period=self.yfinance_periods[1]))
                 str_spx = self.form_string(self.spx.history(period=self.yfinance_periods[1]), True)
                 channel = self.client.get_channel(fin_channel_ids[curr_period_spx])
-                await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')}"+str_spx+str_moex,files=[discord.File(im1_path),discord.File(im2_path)])
+                await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')}"+str_spx,files=[discord.File(im1_path),discord.File(im2_path)])
                 logger.info(f'запрос на информацию по месяцам выполнен')
                 if curr_date.month == 4 or curr_date.month == 7 or curr_date.month == 10 or curr_date.month == 1:
                     curr_period=list(self.spx_duration_dict.keys())[3]
                     logger.info(f'запрос на информацию по кварталам {curr_period}')
                     im1_path = self.get_SPX(browser=browser,period=curr_period)
                     channel = self.client.get_channel(fin_channel_ids[curr_period])
-                    str_moex = self.form_string(self.moex.history(period=self.yfinance_periods[2]))
+                    #str_moex = self.form_string(self.moex.history(period=self.yfinance_periods[2]))
                     str_spx = self.form_string(self.spx.history(period=self.yfinance_periods[2]), True)
-                    await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')}"+str_spx+str_moex,file=discord.File(im1_path))
+                    await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')}"+str_spx,file=discord.File(im1_path))
                     logger.info(f'запрос на информацию по кварталам выполнен')
                 if curr_date.month == 7 or curr_date.month==1:
                     curr_period=list(self.spx_duration_dict.keys())[4]
@@ -169,9 +169,9 @@ class FininceReporter(commands.Cog):
                     logger.info(f'запрос на информацию по году {curr_period}')
                     im1_path = self.get_SPX(browser=browser,period=curr_period)
                     channel = self.client.get_channel(fin_channel_ids[curr_period])
-                    str_moex = self.form_string(self.moex.history(period=self.yfinance_periods[-1]))
+                    #str_moex = self.form_string(self.moex.history(period=self.yfinance_periods[-1]))
                     str_spx = self.form_string(self.spx.history(period=self.yfinance_periods[-1]), True)
-                    await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')}"+str_spx+str_moex,file=discord.File(im1_path))
+                    await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')}"+str_spx,file=discord.File(im1_path))
                     logger.info('запрос на информацию по году выполнен')
             browser.quit()
 
@@ -196,14 +196,14 @@ class FininceReporter(commands.Cog):
         logger.info(f'запрос на информацию за день {curr_period_spx}')
         im1_path =self.get_SPX(browser=browser,period=curr_period_spx)
         im2_path =self.get_MOEX(browser=browser,period=curr_period_moex)
-        str_moex = self.form_string(self.moex.history(period='1d'))
+        #str_moex = self.form_string(self.moex.history(period='1d'))
         str_spx = self.form_string(self.spx.history(period='1d'), True)
         
         if len(description)>0:
-            await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')} \n"+' '.join([str(i) for i in description ])+str_moex+str_spx \
+            await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')} \n"+' '.join([str(i) for i in description ])+str_spx \
                                                         ,files=[discord.File(im1_path),discord.File(im2_path)])#,reference=ctx.message)
         else:
-            await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')}"+str_moex+str_spx,files=[discord.File(im1_path),discord.File(im2_path)])
+            await channel.send(emoji.emojize('\U0001F4c5')+f" {curr_date.strftime('%d.%m.%Y')}"+str_spx,files=[discord.File(im1_path),discord.File(im2_path)])
         logger.info('запрос выполенен')    
         browser.quit()
 
