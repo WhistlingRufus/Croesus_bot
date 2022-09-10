@@ -23,10 +23,9 @@ if __name__ == '__main__':
 	client = commands.Bot(command_prefix=settings['prefix'])
 	finreporter = FininceReporter(client=client)
 	client.add_cog(finreporter)
-	display = Display(visible=0,size=(800, 600))
+	display = Display(visible=0,size=(1280,1280))
 	display.start()
-
-
+	
 	@client.event
 	async def on_ready():
 		try:
