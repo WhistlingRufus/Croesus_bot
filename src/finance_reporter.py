@@ -62,7 +62,11 @@ class FininceReporter(commands.Cog):
         time.sleep(2)
         browser.find_element(By.XPATH,'/html/body/div[2]/div/div/div[1]/div[3]/button[2]').click()
         time.sleep(2)
-        img = browser.find_element(By.XPATH,'/html/body/div[10]/div/div/div[2]/div[2]/div/div/div[1]/label/div/textarea').text
+        #img = browser.find_element(By.XPATH,'/html/body/div[10]/div/div/div[2]/div[2]/div/div/div[1]/label/div/textarea').text
+        if period == '1month':
+            img = browser.find_element(By.XPATH,'/html/body/div[11]/div/div/div[2]/div[2]/div/div/div[1]/label/div/textarea').text 
+        else:
+            img = browser.find_element(By.XPATH,'/html/body/div[10]/div/div/div[2]/div[2]/div/div/div[1]/label/div/textarea').text
         browser.get(img)
         element =  browser.find_element(By.XPATH,'/html/body/div[2]/div/div/a[1]/img')
         location = element.location
